@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="text-center">
+    {% if current_user.is_authenticated: %}
+        <h1 class="display-4">Welcome User!</h1>
+        <p class="lead">Your organized life starts here. Select a task list from the sidebar or create a new one to begin.</p>
+        <a href="{{url_for('view_lists')}}" class="btn btn-primary mt-3">Create New Task List</a>
+    {% else %}
+        <h1 class="display-4">Welcome to your task manager! </h1>
+        <p class="lead">Begin by creating an account using the navigation bar.</p>
+    {% endif %}
+</div>
+{% endblock %}

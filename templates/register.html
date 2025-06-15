@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="d-flex align-items-center py-4">
+  <main class="form-signin w-50 m-auto">
+    <form method="POST">
+    <!--    must include the method POST so that the form can actually send a POST request-->
+      <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" class="bi bi-key-fill" viewBox="0 0 16 16">
+        <path d="M3.5 11.5a3.5 3.5 0 1 1 3.163-5H14L15.5 8 14 9.5l-1-1-1 1-1-1-1 1-1-1-1 1H6.663a3.5 3.5 0 0 1-3.163 2M2.5 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+      </svg>
+      <h1 class="h3 mb-3 fw-normal">Please register to create task lists</h1>
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert alert-warning">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+      <div class="form-floating">
+        <!--    MUST ADD NAME ATTRIBUTES TO THE INPUT SO THAT FLASK CAN ACTUALLY GRAB THE DATA WHEN POST REQUEST IS SENT    -->
+        <input name="email" type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+        <label for="floatingInput">Email address</label>
+      </div>
+      <div class="form-floating">
+        <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
+        <label for="floatingPassword">Password</label>
+      </div>
+      <button class="btn btn-primary w-100 py-2 my-4" type="submit">SIGN ME UP!</button>
+      <p class="mt-5 mb-3 text-body-secondary">© Todo List 2025</p>
+    </form>
+  </main>
+</div>
+{% endblock %}

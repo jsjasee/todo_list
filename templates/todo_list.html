@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% from 'bootstrap5/form.html' import render_form %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-8 py-3">
+
+      <h1>{{task_list_name}}</h1>
+
+      <!-- This is where your WTForm will go. -->
+      {{ render_form(form, novalidate=True) }}
+
+    </div>
+
+    <hr class="my-4">
+
+    <!--    empty tasks are treated as false in jinja-->
+    {% if tasks %}
+      {% for task in tasks %}
+        <div class="d-flex align-items-center justify-content-between border rounded p-2 my-2">
+          <div class="d-flex align-items-center">
+            <a href="{{url_for('complete_task', task_list_name=task_list_name, task_name=task[2], due_date=task[3])}}" type="button" class="btn btn-outline-success btn-sm mx-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z"/>
+              </svg>
+            </a>
+            <!--  jinja does not recognise 'is True', just use 'if __ == True', then for is False use 'if __ == False',
+            otherwise will get TemplateRuntimeError , do not use 'if __' for 'is True' as it just checks if the value is truthy,
+            aka only None, empty list or strings are considered 'falsy', as long as it has a value, it will be considered True         -->
+            <!--            also note in google sheet, the TRUE value is actually a string, not boolean after doing a type check-->
+            {% if task[-1] == 'TRUE' %}
+              <label class="fs-5 text-decoration-line-through">{{task[2]}}</label>
+              <label class="fs-5 mx-2 text-secondary text-decoration-line-through">| Due: {{task[3]}}</label>
+            {% else %}
+              <label class="fs-5">{{task[2]}}</label>
+              <label class="fs-5 mx-2 text-secondary">| Due: {{task[3]}}</label>
+            {% endif %}
+
+          </div>
+          <a href="{{url_for('delete_task', task_list_name=task_list_name, task_name=task[2], due_date=task[3])}}" type="button" class="btn btn-outline-danger btn-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
+              <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/>
+            </svg>
+          </a>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p class="text-muted">No tasks yet. Add one above!</p>
+    {% endif %}
+
+  </div>
+</div>
+
+{% endblock %}
