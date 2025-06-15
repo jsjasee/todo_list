@@ -9,9 +9,9 @@ from dotenv import load_dotenv
 import os
 from spreadsheet import TodoSheet, User
 
-# Todo: add in user log in functionality with google sheets data -> when deleting things should zoom into those created by the User and not others
-# todo: make the todo_list page only avail to those who are logged in
-# todo: make a login and register page
+# add in user log in functionality with google sheets data -> when deleting things should zoom into those created by the User and not others
+# make the todo_list page only avail to those who are logged in
+# make a login and register page
 # optional: add in functionality to change task list name
 # add in functionality to check off and remove tasks
 # add in functionality to browse all task lists
